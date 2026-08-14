@@ -52,7 +52,7 @@ public class Main : MonoBehaviour
 
     private void Update()
     {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        if (Keyboard.current.numpad0Key.wasPressedThisFrame)
         {
             Open = !Open;
             SendMs("GUI Opened");
