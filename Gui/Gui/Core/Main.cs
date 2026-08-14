@@ -32,6 +32,10 @@ public class Main : MonoBehaviour
     private string RoomCode = "";
     // private float RpcFlushTime = 2f; // this is the time in seconds between each RPC flush, Lower values are not recommended.
     private int currentPage = 0; // Track the current page
+    private float delaybetweenscore = 0f; // Delay between score setting actions
+    private string floatString = "0";
+    private bool isEditing = false;
+    private float myFloat = 0f;
 
     private void OnGUI()
     {
@@ -132,10 +136,34 @@ public class Main : MonoBehaviour
                 currentPage = (currentPage - 1 + 3) % 3; // Example: cycle between 3 pages
             }
         }
-        if (GUILayout.Button("Close", BStyle))
+        GUILayout.Label("Set Score");
+        if (GUILayout.Button("Set Max Score", BStyle))
         {
-            this.enabled = false;
-            SendMs("GUI Closed");
+            if (Time.time > delaybetweenscore)
+            {
+                delaybetweenscore = Time.time + 1f;
+                VRRig.LocalRig.SetQuestScore(int.Parse(floatString));
+            }
+        }
+        
+        GUI.SetNextControlName("FloatField");
+        string newText = GUILayout.TextField(floatString);
+
+        if (newText != floatString)
+        {
+            floatString = newText;
+            isEditing = true;
+        }
+
+        // Apply when the field loses focus
+        if (isEditing && GUI.GetNameOfFocusedControl() != "FloatField")
+        {
+            if (float.TryParse(floatString, out float result))
+                myFloat = result;
+            else
+                floatString = myFloat.ToString(); // restore valid value
+
+            isEditing = false;
         }
     }
 
