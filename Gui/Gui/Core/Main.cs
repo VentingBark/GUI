@@ -36,6 +36,7 @@ public class Main : MonoBehaviour
     private string floatString = "0";
     private bool isEditing = false;
     private float myFloat = 0f;
+    private string NameTosetTo = "0"; // Variable to hold the name to set
 
     private void OnGUI()
     {
@@ -62,6 +63,7 @@ public class Main : MonoBehaviour
     }
 
     private void FixedUpdate()
+ 
     {
         Setit();
     }
@@ -69,7 +71,16 @@ public class Main : MonoBehaviour
     private void ToggleMenu()
     {
         Open = !Open;
-        SendMs(Open ? "GUI Opened" : "GUI Closed");
+
+        // Keep the menu toggle lightweight. The old Discord webhook call could freeze the main thread.
+        if (Open)
+        {
+            Debug.Log("GUI Opened");
+        }
+        else
+        {
+            Debug.Log("GUI Closed");
+        }
     }
 
     private void UIM(int id)
@@ -90,7 +101,7 @@ public class Main : MonoBehaviour
             GUILayout.Label("Basic Mods");
             WorldScaleValue = GUILayout.HorizontalSlider(WorldScaleValue, 1f, 2.5f, SliderStyle, SliderThumbStyle);
             GUILayout.Label($"World Scale Value set to {WorldScaleValue:F3}");
-            Normalmuilty = GUILayout.HorizontalSlider(Normalmuilty, 1.5f, 5.5f, SliderStyle, SliderThumbStyle);
+            Normalmuilty = GUILayout.HorizontalSlider(Normalmuilty, 1.5f, 99.5f, SliderStyle, SliderThumbStyle);
             GUILayout.Label($"Speed Value set to {Normalmuilty:F3}");
             GUILayout.Space(2f);
             Speed = GUILayout.Toggle(Speed, "Enable Speed Boost");
@@ -152,7 +163,16 @@ public class Main : MonoBehaviour
                 VRRig.LocalRig.SetQuestScore(int.Parse(floatString));
             }
         }
-        
+        if (GUILayout.Button("Set Name to: " + NameTosetTo, BStyle))
+        {
+            ChangeName(NameTosetTo);
+        }
+
+        string Nametext = GUILayout.TextField(NameTosetTo);
+        if (Nametext != NameTosetTo)
+        {
+            NameTosetTo = Nametext;
+        }
         GUI.SetNextControlName("FloatField");
         string newText = GUILayout.TextField(floatString);
 
@@ -197,6 +217,28 @@ public class Main : MonoBehaviour
         PhotonNetworkController.Instance.AttemptToJoinSpecificRoom(roomName, JoinType.Solo);
     }
 
+    private void ChangeName(string newName)
+    {
+        if (string.IsNullOrWhiteSpace(newName))
+        {
+            return;
+        }
+
+        try
+        {
+            string trimmedName = newName.Trim();
+            PhotonNetwork.NickName = trimmedName;
+
+            if (PhotonNetwork.LocalPlayer != null)
+            {
+                PhotonNetwork.LocalPlayer.NickName = trimmedName;
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.LogWarning($"Failed to change name: {ex.Message}");
+        }
+    }
 
     private void FlushRPCs()
     {
