@@ -39,23 +39,25 @@ public class Main : MonoBehaviour
 
     private void OnGUI()
     {
+        if (!Open)
+        {
+            return;
+        }
+
         if (!SLoaded)
         {
             INIT();
             SLoaded = true;
         }
-        if (Open)
-        {
-            Window = GUILayout.Window(2223213, Window, UIM, "GUI", WStyle);
-        }
+
+        Window = GUILayout.Window(2223213, Window, UIM, "GUI", WStyle);
     }
 
     private void Update()
     {
         if (Keyboard.current.numpad0Key.wasPressedThisFrame)
         {
-            Open = !Open;
-            SendMs("GUI Opened");
+            ToggleMenu();
         }
     }
 
@@ -64,14 +66,19 @@ public class Main : MonoBehaviour
         Setit();
     }
 
+    private void ToggleMenu()
+    {
+        Open = !Open;
+        SendMs(Open ? "GUI Opened" : "GUI Closed");
+    }
+
     private void UIM(int id)
     {
         MMod();
         GUILayout.Space(5f);
         if (GUILayout.Button("Close", BStyle))
         {
-            Open = !Open;
-            SendMs("GUI Closed");
+            ToggleMenu();
         }
         GUI.DragWindow();
     }
