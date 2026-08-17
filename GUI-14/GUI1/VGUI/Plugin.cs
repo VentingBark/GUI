@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using BepInEx;
-using GUITemplate.core;
-using Gui.Stuff;
-using Gui.Libraries;
+using GUI1.core;
+using GUI1.Stuff;
+using GUI1.Libraries;
 
-namespace Gui.Plugin;
+namespace GUI1.Plugin;
 
 [BepInPlugin(Constantss.GUID, Constantss.Name, Constantss.Version)]
 public class Plugin : BaseUnityPlugin

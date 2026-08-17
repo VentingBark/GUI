@@ -1,4 +1,4 @@
-﻿namespace Gui.Stuff;
+﻿namespace GUI1.Stuff;
 
 internal class Constantss
 {

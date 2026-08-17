@@ -1,6 +1,6 @@
 ﻿using Valve.VR;
 
-namespace Gui.Libraries;
+namespace GUI1.Libraries;
 
 internal class InputLib
 {

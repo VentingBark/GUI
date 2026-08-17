@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Gui.Libraries;
+namespace GUI1.Libraries;
 
 public class OnScreenNotify : MonoBehaviour
 {

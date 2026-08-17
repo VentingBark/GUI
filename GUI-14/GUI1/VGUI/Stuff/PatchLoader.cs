@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 
-namespace Gui.Stuff;
+namespace GUI1.Stuff;
 
 public class PatchLoader
 {
