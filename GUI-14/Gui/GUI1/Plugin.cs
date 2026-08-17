@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using BepInEx;
-using Astras_GUI_Template.Core;
-using Astras_GUI_Template.Stuff;
-using Astras_GUI_Template.Libraries;
+using GUITemplate.core;
+using Gui.Stuff;
+using Gui.Libraries;
 
-namespace Astras_GUI_Template.Plugin;
+namespace Gui.Plugin;
 
 [BepInPlugin(Constantss.GUID, Constantss.Name, Constantss.Version)]
 public class Plugin : BaseUnityPlugin

@@ -9,7 +9,7 @@ using POpusCodec.Enums;
 using Steamworks;
 
 
-namespace Astras_GUI_Template.Core;
+namespace GUITemplate.core
 
 public class Main : MonoBehaviour
 {
@@ -332,4 +332,4 @@ public class Main : MonoBehaviour
         H.Apply();
         return H;
     }
-}
+}}
