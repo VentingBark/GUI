@@ -89,6 +89,14 @@ namespace GUI1.core
             {
                 ToggleMenu();
             }
+            if (GUILayout.Button("Next Page", BStyle))
+            {
+                currentPage = (currentPage + 1) % 5;
+            }
+            if (GUILayout.Button("Previous Page", BStyle))
+            {
+                currentPage = (currentPage - 1 + 5) % 5;
+            }
             GUI.DragWindow();
         }
 
@@ -104,10 +112,6 @@ namespace GUI1.core
                 GUILayout.Space(2f);
                 Speed = GUILayout.Toggle(Speed, "Enable Speed Boost");
                 WorldScale = GUILayout.Toggle(WorldScale, "Enable WorldScale");
-                if (GUILayout.Button("Next Page", BStyle))
-                {
-                    currentPage = (currentPage + 1) % 3; // Example: cycle between 3 pages
-                }
             }
             else if (currentPage == 1)
 
@@ -138,10 +142,6 @@ namespace GUI1.core
                 {
                     Application.Quit();
                 }
-                if (GUILayout.Button("Next Page", BStyle))
-                {
-                    currentPage = (currentPage + 1) % 2; // Example: cycle between 2 pages
-                }
             }
             else if (currentPage == 2)
             {
@@ -156,6 +156,13 @@ namespace GUI1.core
 
                     }
                     
+                GUI.SetNextControlName("FloatField");
+                string newText = GUILayout.TextField(floatString);
+                if (newText != floatString)
+                    {
+                        floatString = newText;
+                        isEditing = true;
+                    }
                 }
                 if (GUILayout.Button("Set Name to: " + NameTosetTo, BStyle))
                 {
@@ -165,13 +172,6 @@ namespace GUI1.core
                 if (Nametext != NameTosetTo)
                 {
                     NameTosetTo = Nametext;
-                }
-                GUI.SetNextControlName("FloatField");
-                string newText = GUILayout.TextField(floatString);
-                if (newText != floatString)
-                {
-                    floatString = newText;
-                    isEditing = true;
                 }
                 if (isEditing && GUI.GetNameOfFocusedControl() != "FloatField")
                 {
@@ -187,15 +187,7 @@ namespace GUI1.core
 
 
                 }
-
-
-                if (GUILayout.Button("Previous Page", BStyle))
-                {
-                    currentPage = (currentPage - 1 + 3) % 3; // Example: cycle between 3 pages
-                }
             }
-
-
 
         }
 
